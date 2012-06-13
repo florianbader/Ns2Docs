@@ -1,0 +1,24 @@
+{% assign childrenByName = node.ChildrenByName %}
+{% if childrenByName != empty %}
+	{% assign class = "tree-node" %}
+{% else %}
+	{% assign class = "tree-leaf-node" %}
+{% endif %}
+
+<div class="{{ class }}">
+	<a href="{% url table-detail table=node.Name from=pageUrl %}">
+		{{ node.Name }}
+	</a>
+	{% if node.Summary %}
+		<span class="info-node">{{ node.Summary | Escape }}</span>
+	{% endif %}
+	
+	<div class="child-node{% if nodeIsOpen == false %} node-closed{% endif %}">
+		<ul>
+			{% for child in childrenByName %}
+				<li>{% include "table-node" node:child pageUrl:pageUrl isBaseTable:false %}</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+

@@ -1,0 +1,49 @@
+{% extends "member" %}
+
+{% block name %}
+	{{ block.super }}
+{% endblock %}
+
+{% block info %}
+	{% if viewModel.References != empty %}
+		<div class="section variable-references">
+			<div class="section-title">
+				Sample assignments
+			</div>
+			<ul>
+				{% for reference in viewModel.References %}
+					<li>
+						<div class="lua-snippet">
+							<pre>{{ reference.Assignment | Escape }}</pre>
+						</div>
+						<a href="{% url sourcecode-detail fileName=reference.DeclaredIn from=viewModel.Url %}#line-{{ reference.Line }}">
+							{{ reference.DeclaredIn }}:{{ reference.Line }}
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+	{% comment %}
+		{% if viewModel.References != empty %}
+			<div class="section variable-references">
+				<div class="section-title">
+					Sample assignments
+				</div>
+				<ul>
+					{% for reference in viewModel.References %}
+						<li>
+							<div class="bubbleInfo">
+								<span class="trigger">
+									<a href="{% url sourcecode-detail fileName=reference.DeclaredIn from=viewModel.Url %}#line-{{ reference.Line }}">
+										{{ reference.LineStr | Truncate:100 | Escape }}
+									</a>
+								</span>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+	{% endcomment %}
+{% endblock %}

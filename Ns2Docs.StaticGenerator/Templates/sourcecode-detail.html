@@ -1,0 +1,18 @@
+{% extends "base" %}
+
+{% block content %}
+	<div class="grid_12">
+		<div class="page-header">
+			{{ viewModel.Name | Escape }}
+		</div>
+
+		<div class="lua-source-code-line-numbers">
+			{% for i in (1..viewModel.NumLines) %}
+				<div id="line-{{ i }}">{{ i }}</div>
+			{% endfor %}
+		</div>
+		<div class="lua-source-code">
+			<pre>{{ viewModel.Contents | Escape }}</pre>
+		</div>
+	</div>
+{% endblock %}

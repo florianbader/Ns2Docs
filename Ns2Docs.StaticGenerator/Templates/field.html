@@ -1,0 +1,10 @@
+﻿{% extends "tablemember-variable-detail" %}
+
+{% block name %}
+	{% if viewModel.Datatype %}
+		<span class="datatype">
+			{{ viewModel.Datatype | Escape }}
+		</span>
+	{% endif %}
+	.{{ viewModel.Name }} =
+{% endblock %}

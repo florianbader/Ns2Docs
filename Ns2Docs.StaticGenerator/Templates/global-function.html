@@ -1,0 +1,33 @@
+﻿{% extends "member" %}
+
+{% block name %}
+	{{ viewModel.Signature }}
+{% endblock %}
+
+{% block info %}
+<p>
+	Declared in <a href="{{ viewModel.DeclaredInUrl }}">{{ viewModel.DeclaredIn }}</a>
+</p>
+{% if viewModel.IsOverriding %}
+	<p>
+		Overridding <a href="{% url table-detail table=viewModel.Overriding.TableName from=viewModel.Url %}#{{ viewModel.Overriding.HrefAnchor }}">{{ viewModel.Overriding.QualifiedName | Escape }}</a>
+	</p>
+{% endif %}
+{% if viewModel.Returns != empty %}
+	<div class="section function-returns">
+		<div class="section-title">
+			Returns
+		</div>
+		<ul>
+			{% for return in viewModel.Returns %}
+				<li>
+					&lt;{{ return.Datatypes | Join:", " | Escape }}&gt;
+      {% if return.When %}
+      when {{ return.When | Escape }}
+      {% endif %}
+      {{ return.Brief | Escape | Markdown }}
+    </li>
+    {% endfor %}
+  </div>
+{% endif %}
+{% endblock %}

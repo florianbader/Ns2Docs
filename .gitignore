@@ -1,0 +1,7 @@
+
+/Build
+*.suo
+TestResult.xml
+*.VisualState.xml
+*/obj/*
+*.user

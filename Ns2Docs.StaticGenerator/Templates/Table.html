@@ -1,0 +1,89 @@
+﻿{% extends "base" %}
+
+{% block js %}
+	{{ block.Super }}
+	<script src="{% url js fileName='table-detail.js' from=viewModel.Url %}"></script>
+	<script src="{% url js fileName='autocomplete.js' from=viewModel.Url %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="grid_12">
+		<div class="page-header">
+			{{ viewModel.Name }}
+		</div>
+		<a href="{{ viewModel.DeclaredInUrl }}">
+			{{ viewModel.DeclaredIn }}
+		</a><br />
+		{% url table-detail table=viewModel.Name from=viewModel.Url %}
+		{{ viewModel.Brief | Escape }}
+
+	
+		<div class="section">
+			<div class="section-title">
+				Mixins
+			</div>
+			{% unless viewModel.AllMixins == empty %}
+				  {% for mixin in viewModel.AllMixins %}
+					<a href="{% url table-detail table=mixin.Name from=viewModel.Url %}">{{ mixin.Name }}</a>{% unless forloop.last %}, {% endunless %}
+				  {% endfor %}
+			{% else %}
+				{{ viewModel.Name }} has no mixins.
+			{% endunless %}
+		</div>
+
+		<div class="section">
+			<div class="section-title">
+				Inheritance
+			</div>
+			{% for cls in viewModel.InheritanceChain %}
+				{% unless forloop.first %}
+					<div class="inherits"></div>
+				{% endunless %}
+				{% unless forloop.last %}
+					<a href="{% url table-detail table=cls.Name from=viewModel.Url %}">{{ cls.Name }}</a>
+				{% else %}
+					{{ cls.Name }}
+				{% endunless %}
+			{% endfor %}
+		</div>
+
+		<div class="section">
+			<div class="section-title">
+				Children
+			</div>
+			
+			{% if viewModel.Children != empty %}
+				<div class="table-children">
+					{% for child in viewModel.Children %}
+						<a href="{% url table-detail table=child.Name from=viewModel.Url %}">{{ child.Name }}</a>{% unless forloop.last %}, {% endunless %}
+					{% endfor %}
+				</div>
+			{% else %}
+				{{ viewModel.Name }} has no children.
+			{% endif %}
+		</div>
+	</div>
+
+	<div class="clear">&nbsp;</div>
+
+	<div class="grid_12 bar">
+	</div>
+
+	<div class="clear">&nbsp;</div>
+
+	<div class="section">
+		<div class="grid_12">
+			<div class="section-title">
+				Members
+			</div>
+			<ul id="members">
+				{% for member in viewModel.AllMembersByVisibilityThenByName %}
+					<li>{% include member.Template viewModel:member %}</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="clear">&nbsp;</div>
+
+{% endblock %}
+

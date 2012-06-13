@@ -1,0 +1,14 @@
+﻿<div class="member {{ viewModel.ContainerCssClasses | Join }}">
+	<div id="{{ viewModel.HrefAnchor }}" class="member-name">
+		{% block name %}{% endblock %}
+	</div>
+	{% if viewModel.Emblems != empty %}
+		<div class="emblems">
+			{% for emblem in viewModel.Emblems %}
+				<div class="emblem emblem-{{ emblem.Name }}" title="{{ emblem.Description }}"></div>
+			{% endfor %}
+		</div>
+	{% endif %}
+	{{ viewModel.Brief | Escape | Markdown }}
+	<div class="info">{% block info %}{% endblock %}</div>
+</div>

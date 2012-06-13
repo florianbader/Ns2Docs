@@ -1,0 +1,38 @@
+﻿{% extends "base" %}
+
+{% block content %}
+	<div class="grid_12">
+		<div class="page-header">
+			Globals
+		</div>
+	</div>
+
+	<div class="clear">&nbsp;</div>
+	
+	<div class="grid_12 bar">
+	</div>
+
+	<div class="clear">&nbsp;</div>	
+	
+	<div class="grid_12">
+		<div id="globals">
+			<ul>
+				{% for member in viewModel.Members %}
+					{% if member.Template %}
+						<li>
+							{% include member.Template viewModel:member %}
+						</li>
+					{% else %}
+						<li>{{ member }}</li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="clear">%nsbp;</div>
+{% endblock %}
+
+{% block js %}
+	{{ block.Super }}
+	<script src="{% url js fileName='autocomplete.js' from=viewModel.Url %}"></script>
+{% endblock %}

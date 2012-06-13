@@ -1,0 +1,25 @@
+{% assign subDirectories = node.SubDirectories %}
+{% if subDirectories != empty or node.Files != empty %}
+	{% assign class = "tree-node" %}
+{% else %}
+	{% assign class = "tree-leaf-node" %}
+{% endif %}
+
+<div class="{{ class }}">
+	{{ node.Name }}
+	<div class="child-node">
+		<ul>
+			{% for child in subDirectories %}
+				<li>{% include "directorylisting" node:child pageUrl:pageUrl %}</li>
+			{% endfor %}
+			{% for file in node.Files %}
+				<li>
+					<div class="tree-leaf-node">
+						<a href="{% url sourcecode-detail fileName=file.RelativeName from=pageUrl %}">{{ file.Name }}</a>
+						<span class="info-node">{{ file.FileSize }}, modified {{ file.LastWriteTime }}</span>
+					</div>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>

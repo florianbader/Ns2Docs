@@ -1,0 +1,36 @@
+{% extends "base" %}
+
+{% block content %}
+	<div class="grid_12">
+		<div class="page-header">
+			Mixins
+		</div>
+		<div class="tree">
+			<ul>
+				{% for mixin in viewModel.MixinsByName %}
+					<li>
+						{% if mixin.Subclasses != empty %}
+							{% assign class = "tree-node" %}
+						{% else %}
+							{% assign class = "tree-leaf-node" %}
+						{% endif %}
+						<div class="{{ class }}">
+							<a href="{% url table-detail table=mixin.Name from=viewModel.Url %}">{{ mixin.Name }}</a>
+							
+							<div class="child-node node-closed">
+								<div class="info-node">Tables with {{ mixin.Name }}</div>
+								<div class="tree">
+									<ul>
+										{% for table in mixin.ChildrenByName %}
+											<li>{% include "table-node" node:table pageUrl:viewModel.Url isBaseTable:true nodeIsOpen:false %}</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>
+					</li>
+				{% endfor %}
+			</ul>
+		</ul>
+	</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base" %}
+
+{% block content %}
+	<div class="grid_12">
+		<div class="page-header">
+			Files
+		</div>
+		<div class="tree">
+			<ul>
+				{% for listing in viewModel.DirectoryListings %}
+					<li>{% include "directorylisting" node:listing pageUrl:viewModel.Url %}</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+{% endblock %}

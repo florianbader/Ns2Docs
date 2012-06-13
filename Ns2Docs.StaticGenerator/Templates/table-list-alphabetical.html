@@ -1,0 +1,20 @@
+{% extends "base" %}
+
+{% block content %}
+	<div class="grid_12">
+		<div class="page-header">
+			{{ viewModel.Name }}
+			{% include "table-list-view-options" %}
+		</div>
+		<ul>
+			{% for table in viewModel.TablesByName %}
+				<li>
+					<a href="{% url table-detail table=table.Name from=viewModel.Url %}">{{ table.Name }}</a>
+					{% if table.Summary %}
+						<span class="info-node">{{ table.Summary | Escape }}</span>
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}

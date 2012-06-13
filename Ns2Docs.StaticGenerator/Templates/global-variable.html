@@ -1,0 +1,33 @@
+﻿<div class="member">
+	<div id="{{ viewModel.HrefAnchor }}" class="member-name">
+    {{ viewModel.Name }} =
+  </div>
+	
+	{% if viewModel.Emblems != empty %}
+		<div class="emblems">
+			{% for emblem in viewModel.Emblems %}
+				<div class="emblem emblem-{{ emblem.Name }}" title="{{ emblem.Description }}"></div>
+			{% endfor %}
+		</div>
+	{% endif %}
+		
+	{% if viewModel.References != empty %}
+		<div class="section variable-references">
+			<div class="section-title">
+				Sample assignments
+			</div>
+			<ul>
+				{% for reference in viewModel.References %}
+					<li>
+						<div class="lua-snippet">
+							<pre>{{ reference.Assignment | Escape }}</pre>
+						</div>
+						<a href="{% url sourcecode-detail fileName=reference.DeclaredIn from=viewModel.Url %}#line-{{ reference.Line }}">
+              {{ reference.DeclaredIn }}:{{ reference.Line }}
+            </a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+</div>

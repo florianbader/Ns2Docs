@@ -1,0 +1,17 @@
+{% extends "base" %}
+
+{% block content %}
+	<div class="grid_12">
+		<div class="page-header">
+			{{ viewModel.Name }}
+			{% include "table-list-view-options" %}
+		</div>
+		<div class="tree">
+			<ul>
+				{% for table in viewModel.TableTreeByName %}
+					<li>{% include "table-node" node:table pageUrl:viewModel.Url isBaseTable:true %}</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+{% endblock %}

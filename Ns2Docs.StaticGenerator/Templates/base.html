@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+	
+    {% block css %}
+      <link rel="stylesheet" type="text/css" href="{% url css fileName='smoothness/jquery-ui-1.8.16.custom.css' from=viewModel.Url %}" />
+	  <link rel="stylesheet" type="text/css" href="{% url css fileName='CodeMirror/luacolors.css' from=viewModel.Url %}" />
+      <link rel="stylesheet" type="text/css" href="{% url css fileName='grid.css' from=viewModel.Url %}" />
+      <link rel="stylesheet" type="text/css" href="{% url css fileName='common/theme.css' from=viewModel.Url %}" />
+    {% endblock %}
+
+	<title>{{ viewModel.Name | Escape }} - Ns2Docs</title>
+  </head>
+	<body>
+    <div id="header" class="container container_12">
+      <div class="grid_2">
+        <div id="brand">Ns2Docs</div>
+      </div>
+      <div class="grid_10">
+        <div id="navigation">
+          <ul>
+            <li>
+              <a href="{% url table-list from=viewModel.Url %}">Tables</a>
+            </li>
+			<li>
+				<a href="{% url mixin-list from=viewModel.Url %}">Mixins</a>
+			</li>
+            <li>
+              <a href="{% url globals-list from=viewModel.Url %}">Globals</a>
+            </li>
+            <li>
+              <a href="{% url sourcecode-list from=viewModel.Url %}">Files</a>
+            </li>
+            <!--<li>
+              <a href="">Tasks</a>
+            </li>-->
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear">&nbsp;</div>
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div id="content" class="container container_12">
+        {% block content %}{% endblock %}
+    </div>
+    <div class="clear">&nbsp;</div>
+	<div class="container container_12">
+		<div id="footer" class="grid_12">
+			Documentation generated on {{ currentDate | Date:"MMMM dd, yyyy" }}
+		</div>
+	</div>
+	<div class="clear">&nbsp;</div>
+    {% block js %}
+      <script src="{% url js fileName='jquery-1.6.4.min.js' from=viewModel.Url %}"></script>
+      <script src="{% url js fileName='jquery-ui-1.8.16.custom.min.js' from=viewModel.Url %}"></script>
+      <script src="{% url js fileName='jquery.tools.min.js' from=viewModel.Url %}"></script>
+	  <script src="{% url js fileName='highlight.js' from=viewModel.Url %}"></script>
+	  <script src="{% url js fileName='CodeMirror/stringstream.js' from=viewModel.Url %}"></script>
+	  <script src="{% url js fileName='CodeMirror/tokenize.js' from=viewModel.Url %}"></script>
+	  <script src="{% url js fileName='CodeMirror/parselua.js' from=viewModel.Url %}"></script>
+      <script src="{% url js fileName='common.js' from=viewModel.Url %}"></script>
+    {% endblock %}
+	</body>
+</html>
