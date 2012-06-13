@@ -1,10 +1,9 @@
 ﻿<NUnitProject>
-  <Settings activeconfig="Release" />
+  <Settings activeconfig="Debug" />
   <Config name="Debug" binpathtype="Auto">
-    <assembly path="build\Debug\Ns2Docs.Model.Test.dll" />
+    <assembly path="Build\Debug\Ns2Docs.Test.dll" />
   </Config>
   <Config name="Release" binpathtype="Auto">
-    <assembly path="build\Release\Ns2Docs.Model.Test.dll" />
-    <assembly path="Build\Release\Ns2Docs.StaticGenerator.Test.dll" />
+    <assembly path="Build\Release\Ns2Docs.Test.dll" />
   </Config>
 </NUnitProject>
